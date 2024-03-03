@@ -37,18 +37,16 @@ project(ZFP VERSION ${ZFP_VERSION})
 # Some boilerplate to setup nice output directories
 #------------------------------------------------------------------------------#
 include(GNUInstallDirs)
-set(CMAKE_INSTALL_CMAKEDIR ${CMAKE_INSTALL_LIBDIR}/cmake/zfp
-  CACHE STRING "Installation CMake subdirectory")
 
 list(INSERT CMAKE_MODULE_PATH 0 "${ZFP_SOURCE_DIR}/cmake")
 if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ZFP_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ZFP_BINARY_DIR}/bin)
 endif()
 if(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
-  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ZFP_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ZFP_BINARY_DIR}/lib)
 endif()
 if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ZFP_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ZFP_BINARY_DIR}/lib)
 endif()
 
 #------------------------------------------------------------------------------#
@@ -361,13 +359,13 @@ configure_file(zfp-config-version.cmake.in
 install(FILES
   "${PROJECT_BINARY_DIR}/zfp-config.cmake"
   "${PROJECT_BINARY_DIR}/zfp-config-version.cmake"
-  DESTINATION "${CMAKE_INSTALL_CMAKEDIR}")
+  DESTINATION "${CMAKE_INSTALL_CMAKEDIR}/zfp")
 
 # Install the export set for use with the install-tree
 install(EXPORT zfp-targets NAMESPACE zfp::
-  DESTINATION "${CMAKE_INSTALL_CMAKEDIR}")
+  DESTINATION "${CMAKE_INSTALL_CMAKEDIR}/zfp")
 
 if(BUILD_CFP)
   install(EXPORT cfp-targets NAMESPACE zfp::
-    DESTINATION "${CMAKE_INSTALL_CMAKEDIR}")
+    DESTINATION "${CMAKE_INSTALL_CMAKEDIR}/zfp")
 endif()
